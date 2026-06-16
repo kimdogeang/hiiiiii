@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/libs.js">
+        function over(obj){
+            obj.src='imges/banana.png';
+        }
+        function over(obj){
+            obj.src="images/apple.png";
+        }
+    </script> 
+</head>
+<body>
+    <h3>이미지에 마우스를 오려보세요</h3>
+    <hr>
+    <img src="images/apple.png" alt="과일" 
+    onmouseover="this.src='images/banana.png'" onmouseout='this.src="images/apple.png"'>
+    
+</body>
+</html>
