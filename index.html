@@ -3,38 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>김두경의 홈페이지 (우사기 Ver.)</title>
     <style>
+        /* 폰트 및 기본 초기화 */
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+        
         *{
             padding: 0;
             margin: 0;
+            box-sizing: border-box;
+            font-family: 'Jua', sans-serif; /* 우사기 느낌의 둥글둥글하고 귀여운 폰트 */
         }
+        
+        body {
+            /* 우사기의 노란색과 핑크/보라 파스텔톤 그라데이션 배경 */
+            background: linear-gradient(135deg, #ffeaa7 0%, #ffbe76 50%, #dff9fb 100%);
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
         .all{
             width: 1200px;
             margin: 0 auto;
+            background: rgba(255, 255, 255, 0.6); /* 뒤 배경이 살짝 비치는 화이트 보드 효과 */
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 4px solid #fff;
         }
+
         header{
-            height: 80px;
-            text-align: center;
-        }
-        section{
-            text-align: center;
-            height: 120px;
-        }
-        .div{
-            width: 300px;
             height: 100px;
-            border: 1px solid lightgray;
-            border-radius: 10px;
-            float: left;
-            margin-left: 5px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
         }
+
+        header h1 {
+            font-size: 3rem;
+            color: #e67e22;
+            text-shadow: 3px 3px 0px #fff, -2px -2px 0px #fff, 4px 4px 0px #f1c40f;
+            position: relative;
+        }
+
+        /* 타이틀 양옆에 우사기 귀 같은 포인트를 이모지로 대체 */
+        header h1::before { content: "🐰 "; }
+        header h1::after { content: " ⚡"; }
+
+        section{
+            display: flex;
+            justify-content: center; /* 기존의 애매한 여백 대신 깔끔하게 중앙 정렬 */
+            gap: 25px;               /* 카드 사이의 간격 */
+            margin-bottom: 25px;
+        }
+
+        /* 개별 카드 스타일 (우사기 스타일로 대변신) */
+        .div{
+            width: 320px;
+            height: 130px;
+            background-color: #ffffff;
+            border: 3px solid #f1c40f; /* 우사기 노란색 테두리 */
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            box-shadow: 0 8px 0px #f39c12; /* 입체감 있는 툰(Toon) 스타일 그림자 */
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 우사기처럼 통통 튀는 호버 애니메이션 (야하~!) */
+        .div:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 0px #e67e22;
+            background-color: #fff9db; /* 마우스 올리면 노랗게 변함 */
+        }
+
+        /* 기존의 수동 마진 제거 (gap과 중앙정렬로 대체하므로 0 처리) */
         .ml{
-            margin-left: 142.5;
+            margin-left: 0; 
         }
+
+        h3{
+            text-align: center;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        /* 클릭하세요 버튼 스타일 */
         .div a{
             text-decoration: none;
-            color: black;
+            color: white;
+            background-color: #ff9f43; /* 산뜻한 오렌지색 버튼 */
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 3px 0 #d35400;
+            transition: all 0.1s;
+        }
+
+        /* 버튼 호버 시 흔들리는 우사기 액션 */
+        .div a:hover {
+            background-color: #ff3838; /* 화나거나 신난 우사기의 레드(?) */
+            box-shadow: 0 1px 0 #c0392b;
+            transform: translateY(2px);
+            animation: usagi-shake 0.3s infinite linear;
+        }
+
+        /* 우사기 바이브 진동 애니메이션 */
+        @keyframes usagi-shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(0px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(2px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(2px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
         }
     </style>
 </head>
@@ -57,7 +153,7 @@
                 <a href="z-index">클릭하세요~</a>
             </div>
         </section>
-            <section>
+        <section>
             <div class="div ml">
                 <h3>boxtest실습</h3>
                 <a href="boxtest_ch">클릭하세요~</a>
@@ -71,7 +167,7 @@
                 <a href="#">클릭하세요~</a>
             </div>
         </section>
-            <section>
+        <section>
             <div class="div ml">
                 <h3>티몬 홈페이지</h3>
                 <a href="#">클릭하세요~</a>
