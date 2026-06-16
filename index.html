@@ -3,33 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>김두경의 홈페이지 (우사기 Ver.)</title>
+    <title>김두경의 홈페이지 (우사기 애니메이션 Ver.)</title>
     <style>
-        /* 폰트 및 기본 초기화 */
+        /* 귀여운 폰트 로드 */
         @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
         
         *{
             padding: 0;
             margin: 0;
             box-sizing: border-box;
-            font-family: 'Jua', sans-serif; /* 우사기 느낌의 둥글둥글하고 귀여운 폰트 */
+            font-family: 'Jua', sans-serif;
         }
         
         body {
-            /* 우사기의 노란색과 핑크/보라 파스텔톤 그라데이션 배경 */
-            background: linear-gradient(135deg, #ffeaa7 0%, #ffbe76 50%, #dff9fb 100%);
+            /* 우사기 테마 파스텔 오로라 그라데이션 배경 */
+            background: linear-gradient(-45deg, #ffeaa7, #ffcca5, #dff9fb, #ffecf1);
+            background-size: 400% 400%;
+            animation: auroraBg 15s ease infinite;
             min-height: 100vh;
-            padding: 40px 0;
+            padding: 50px 0;
+            position: relative;
+            overflow-x: hidden; /* 뛰어다니는 토끼가 화면 밖으로 나갈 때 스크롤바 방지 */
         }
 
+        /* ------------------------------------------------------------------
+           ★ 레전드 화려한 배경: 진짜로 뛰어다니는 토끼 & 당근 CSS 애니메이션 
+        --------------------------------------------------------------------- */
+        
+        /* 1번 토끼: 왼쪽 아래에서 오른쪽 위로 대각선 점프 */
+        body::before {
+            content: "🐇";
+            position: fixed;
+            font-size: 4rem;
+            bottom: -50px;
+            left: -50px;
+            z-index: 0;
+            opacity: 0.7;
+            animation: rabbitJump1 12s infinite linear;
+        }
+
+        /* 2번 토끼: 오른쪽에서 왼쪽으로 춤추며 가로지르기 */
+        body::after {
+            content: "🐰";
+            position: fixed;
+            font-size: 3.5rem;
+            top: 20%;
+            right: -60px;
+            z-index: 0;
+            opacity: 0.6;
+            animation: rabbitJump2 9s infinite linear;
+        }
+
+        /* 하늘에서 떨어지는 당근 무리들 */
+        .bg-decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* 클릭 방해 금지 */
+            z-index: 0;
+        }
+        .bg-decorations span {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.5;
+            animation: falling 6s infinite linear;
+        }
+        .bg-decorations span:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .bg-decorations span:nth-child(2) { left: 25%; animation-delay: 2s; font-size: 2.2rem; }
+        .bg-decorations span:nth-child(3) { left: 75%; animation-delay: 1s; }
+        .bg-decorations span:nth-child(4) { left: 90%; animation-delay: 3.5s; font-size: 1.8rem; }
+
+        /* 배경 및 토끼 움직임 키프레임 */
+        @keyframes auroraBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes rabbitJump1 {
+            0% { transform: translate(0, 0) scaleX(1) rotate(0deg); }
+            25% { transform: translate(300px, -200px) scaleX(1) rotate(-10deg); }
+            50% { transform: translate(600px, -400px) scaleX(1) rotate(0deg); }
+            75% { transform: translate(900px, -600px) scaleX(1) rotate(10deg); }
+            100% { transform: translate(1400px, -900px) scaleX(1) rotate(0deg); }
+        }
+        @keyframes rabbitJump2 {
+            0% { transform: translateX(0) scaleX(1) translateY(0); }
+            20% { transform: translateX(-300px) scaleX(1) translateY(-50px); }
+            40% { transform: translateX(-600px) scaleX(1) translateY(0); }
+            60% { transform: translateX(-900px) scaleX(1) translateY(-50px); }
+            80% { transform: translateX(-1200px) scaleX(1) translateY(0); }
+            100% { transform: translateX(-1600px) scaleX(1) translateY(-50px); }
+        }
+        @keyframes falling {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ------------------------------------------------------------------
+           본문 레이아웃 및 스타일
+        --------------------------------------------------------------------- */
         .all{
             width: 1200px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.6); /* 뒤 배경이 살짝 비치는 화이트 보드 효과 */
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.75); /* 토끼가 보여야 하므로 투명도 살짝 조절 */
+            backdrop-filter: blur(5px); /* 배경을 부드럽게 흐리게 만들어 고급스러움 추가 */
+            padding: 40px;
+            border-radius: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
             border: 4px solid #fff;
+            position: relative;
+            z-index: 1; /* 뛰어다니는 배경 토끼보다 위에 오도록 설정 */
         }
 
         header{
@@ -38,95 +125,83 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             color: #e67e22;
-            text-shadow: 3px 3px 0px #fff, -2px -2px 0px #fff, 4px 4px 0px #f1c40f;
-            position: relative;
+            text-shadow: 3px 3px 0px #fff, -2px -2px 0px #fff, 5px 5px 0px #f1c40f;
         }
-
-        /* 타이틀 양옆에 우사기 귀 같은 포인트를 이모지로 대체 */
         header h1::before { content: "🐰 "; }
         header h1::after { content: " ⚡"; }
 
         section{
             display: flex;
-            justify-content: center; /* 기존의 애매한 여백 대신 깔끔하게 중앙 정렬 */
-            gap: 25px;               /* 카드 사이의 간격 */
-            margin-bottom: 25px;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
         }
 
-        /* 개별 카드 스타일 (우사기 스타일로 대변신) */
         .div{
             width: 320px;
-            height: 130px;
+            height: 140px;
             background-color: #ffffff;
-            border: 3px solid #f1c40f; /* 우사기 노란색 테두리 */
-            border-radius: 20px;
+            border: 3px solid #f1c40f;
+            border-radius: 22px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            box-shadow: 0 8px 0px #f39c12; /* 입체감 있는 툰(Toon) 스타일 그림자 */
+            padding: 20px;
+            box-shadow: 0 8px 0px #f39c12;
             transition: all 0.2s ease-in-out;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* 우사기처럼 통통 튀는 호버 애니메이션 (야하~!) */
+        /* 우사기 호버 액션 */
         .div:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 12px 0px #e67e22;
-            background-color: #fff9db; /* 마우스 올리면 노랗게 변함 */
+            transform: translateY(-6px);
+            box-shadow: 0 14px 0px #e67e22;
+            background-color: #fffde7;
         }
 
-        /* 기존의 수동 마진 제거 (gap과 중앙정렬로 대체하므로 0 처리) */
-        .ml{
-            margin-left: 0; 
-        }
+        .ml{ margin-left: 0; }
 
         h3{
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #2c3e50;
             line-height: 1.4;
             word-break: keep-all;
         }
 
-        /* 클릭하세요 버튼 스타일 */
         .div a{
             text-decoration: none;
             color: white;
-            background-color: #ff9f43; /* 산뜻한 오렌지색 버튼 */
-            padding: 6px 20px;
+            background-color: #ff9f43;
+            padding: 8px 24px;
             border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            box-shadow: 0 3px 0 #d35400;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 0 #d35400;
             transition: all 0.1s;
         }
 
-        /* 버튼 호버 시 흔들리는 우사기 액션 */
+        /* 마우스 올리면 광기의 흔들림 이펙트 */
         .div a:hover {
-            background-color: #ff3838; /* 화나거나 신난 우사기의 레드(?) */
+            background-color: #ff3838;
             box-shadow: 0 1px 0 #c0392b;
-            transform: translateY(2px);
+            transform: translateY(3px);
             animation: usagi-shake 0.3s infinite linear;
         }
 
-        /* 우사기 바이브 진동 애니메이션 */
         @keyframes usagi-shake {
             0% { transform: translate(1px, 1px) rotate(0deg); }
             10% { transform: translate(-1px, -2px) rotate(-1deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            20% { transform: translate(-2px, 0px) rotate(1deg); }
             30% { transform: translate(0px, 2px) rotate(0deg); }
             40% { transform: translate(1px, -1px) rotate(1deg); }
             50% { transform: translate(-1px, 2px) rotate(-1deg); }
-            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            60% { transform: translate(-2px, 1px) rotate(0deg); }
             70% { transform: translate(2px, 1px) rotate(-1deg); }
             80% { transform: translate(-1px, -1px) rotate(1deg); }
             90% { transform: translate(2px, 2px) rotate(0deg); }
@@ -135,10 +210,19 @@
     </style>
 </head>
 <body>
+
+    <div class="bg-decorations">
+        <span>🥕</span>
+        <span>✨</span>
+        <span>🥕</span>
+        <span>🌟</span>
+    </div>
+
     <div class="all">
         <header>
             <h1>김두경의 홈페이지</h1>
         </header>
+        
         <section>
             <div class="div ml">
                 <h3>유한대학교 컴퓨터공학과<br> 게임콘텐츠전공</h3>
@@ -153,6 +237,7 @@
                 <a href="z-index">클릭하세요~</a>
             </div>
         </section>
+        
         <section>
             <div class="div ml">
                 <h3>boxtest실습</h3>
@@ -167,6 +252,7 @@
                 <a href="#">클릭하세요~</a>
             </div>
         </section>
+        
         <section>
             <div class="div ml">
                 <h3>티몬 홈페이지</h3>
